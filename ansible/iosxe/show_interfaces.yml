@@ -1,6 +1,6 @@
 ---
 - name: Run show commands
-  hosts: sandbox-iosxe-latest-1.cisco.com
+  hosts: routers
   gather_facts: no
   connection: local
   tasks:

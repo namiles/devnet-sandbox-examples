@@ -1,6 +1,6 @@
 ---
 - name: Gather IOS XE Facts
-  hosts: sandbox-iosxe-latest-1.cisco.com
+  hosts: routers
   gather_facts: no
   connection: local
   tasks:

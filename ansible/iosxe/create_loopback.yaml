@@ -1,6 +1,6 @@
 ---
 - name: Create Loopback 860 and output interfaces to verify
-  hosts: sandbox-iosxe-latest-1.cisco.com
+  hosts: routers
   gather_facts: no
   connection: local
   tasks:
