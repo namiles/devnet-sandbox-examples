@@ -1,25 +1,46 @@
-import requests
+import sys
 import json
+import requests
 
 # DevNet NX-OS Always on Sandbox
-url = "https://sandbox-nxos-1.cisco.com:443/ins"
-uname = "admin"
-pw = "Admin_1234!"
+HOST = "sandbox-nxos-1.cisco.com"
+# Port
+PORT = 443
+# DevNet Supplied Username
+USER = "admin"
+# DevNet Supplied Password
+PASS = "Admin_1234!"
 
-payload = json.dumps({
-  "ins_api": {
-    "version": "1.0",
-    "type": "cli_show",
-    "chunk": "0",
-    "sid": "sid",
-    "input": "show ip int brief",
-    "output_format": "json"
-  }
-})
 
-headers = {
-  'Content-Type': 'application/json',
-}
+def main():
+    payload = json.dumps(
+        {
+            "ins_api": {
+                "version": "1.0",
+                "type": "cli_show",
+                "chunk": "0",
+                "sid": "sid",
+                "input": "show ip int brief",
+                "output_format": "json",
+            }
+        }
+    )
 
-response = requests.post(url, auth=(uname,pw), headers=headers, data=payload, verify=False).json()
-print(json.dumps(response, indent=2, sort_keys=True))
+    headers = {
+        "Content-Type": "application/json",
+    }
+
+    response = requests.post(
+        f"https://{HOST}:{PORT}/ins",
+        auth=(USER, PASS),
+        headers=headers,
+        data=payload,
+        verify=False,
+    )
+    if response.ok:
+        data = response.json()
+        print(json.dumps(data, indent=2, sort_keys=True))
+
+
+if __name__ == "__main__":
+    sys.exit(main())
