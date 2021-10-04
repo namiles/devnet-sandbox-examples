@@ -1,0 +1,11 @@
+---
+local_loopback:
+  - name: Loopback631
+    desc: Create loopback 631 with Ansible
+    ip_address: 172.20.1.3/24
+  - name: Loopback632
+    desc: Create loopback 632 with Ansible
+    ip_address: 172.22.1.3/24
+  - name: Loopback633
+    desc: Create loopback 633 with Ansible
+    ip_address: 172.24.1.3/24

@@ -1,0 +1,43 @@
+---
+# Example HTTP Get request using Ansible and Restconf
+- name: Create loopback payload from template
+  hosts: sandbox-iosxe-latest-1.cisco.com
+  connection: local
+  tasks:
+    - name: get interface configs
+      restconf_get:
+       content: config
+       output: json
+       path: /data/ietf-interfaces:interfaces
+      register: data_output
+    
+    - name: print output
+      debug: msg="{{data_output}}"
+    
+    #Create template
+    - name: Create loopback template
+      with_items: "{{local_loopback}}"
+      template: src="files/ietf_interface.j2" dest="./output.json"
+
+    # Must make a POST request to create a new loopback using the POST method
+    - name: Post request to create loopback
+      with_items: "{{local_loopback}}"
+      restconf_config:
+        method: post
+        format: json
+        path:  /data/ietf-interfaces:interfaces
+        # must pipe to string because format JSON will convert the string to JSON -  similar to json.dumps(data)
+        content: "{{ lookup('file','./output.json') | string }}"
+        #content: "{{ new_loop | to_json }}"
+      register: results
+      ignore_errors: true
+
+    - name: print output
+      debug: msg="{{results}}"
+
+    # - name: Delete interface
+    #   with_items: "{{local_loopback}}"
+    #   restconf_config:
+    #     method: delete
+    #     format: json
+    #     path: "/data/ietf-interfaces:interfaces/interface={{item.name}}"

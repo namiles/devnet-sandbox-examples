@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 
 from ncclient import manager
-import sys
-
 
 # Always-On Sandbox Host
 HOST = "sandbox-iosxe-latest-1.cisco.com"
@@ -28,11 +26,10 @@ def main():
         allow_agent=False,
     ) as m:
 
-        # print all NETCONF capabilities
-        print("***Here are the Remote Devices Capabilities***")
+        # Print supported NETCONF capabilties
         for capability in m.server_capabilities:
             print(capability.split("?")[0])
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    main()

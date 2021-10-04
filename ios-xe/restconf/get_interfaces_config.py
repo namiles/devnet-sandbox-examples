@@ -2,8 +2,6 @@
 
 import requests
 import json
-import sys
-
 
 # Always-On Sandbox Host
 HOST = "sandbox-iosxe-latest-1.cisco.com"
@@ -32,4 +30,4 @@ def main():
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    main()

@@ -1,0 +1,9 @@
+---
+- name: Create loopback payload from template
+  hosts: sandbox-iosxe-latest-1.cisco.com
+  connection: local
+
+  tasks:
+    - name: Create loopback template
+      with_items: "{{local_loopback}}"
+      template: src="files/ietf_interface.j2" dest="./output.json"

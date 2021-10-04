@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 from ncclient import manager
-import sys
 import xml.dom.minidom
 
 
@@ -43,4 +42,4 @@ def main():
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    main()

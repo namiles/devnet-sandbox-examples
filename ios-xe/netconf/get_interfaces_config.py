@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 from ncclient import manager
-import sys
 import xml.dom.minidom
 
 
@@ -31,6 +30,7 @@ def get_configured_interfaces(xml_filter):
         allow_agent=False,
         look_for_keys=False,
     ) as m:
+    
         with open(xml_filter) as f:
             return m.get_config("running", f.read())
 
@@ -41,4 +41,4 @@ def main():
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    main()

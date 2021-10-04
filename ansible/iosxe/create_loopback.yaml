@@ -1,0 +1,27 @@
+---
+- name: Create Loopback 860 and output interfaces to verify
+  hosts: sandbox-iosxe-latest-1.cisco.com
+  gather_facts: no
+  connection: local
+  tasks:
+    - name: Create loopback 860
+      ios_interfaces:
+        config:
+          - name: loopback860
+            description: Created using Ansible
+  
+    - name: Configure Loopback 860
+      ios_l3_interfaces:
+        config:
+          - name: loopback860
+            ipv4:
+            - address: 88.88.88.0/24
+
+    - name: show ip int brief
+      ios_command:
+        commands: show ip int brief
+      register: interface_data
+
+    - name: interface output
+      debug:
+        var: interface_data['stdout_lines'][0]

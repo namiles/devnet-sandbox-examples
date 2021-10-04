@@ -1,0 +1,26 @@
+---
+ansible_connection: "httpapi"
+ansible_network_os: "restconf"
+ansible_httpapi_use_ssl: true
+ansible_httpapi_port: 443
+ansible_httpapi_validate_certs: false
+ansible_httpapi_restconf_root: "/restconf"
+ansible_user: "developer"
+ansible_password: "C1sco12345"
+
+local_loopback:
+  - name: loopback820
+    desc: "Created using Ansible and Restconf"
+    ip_address: 88.45.45.90
+    prefix: 255.255.255.255
+
+# new_loop:
+#   interface:
+#     - name: "Loopback102"
+#       type: "iana-if-type:softwareLoopback"
+#       enabled: true
+#       ietf-ip:ipv4:
+#         address:
+#           - ip: 10.99.99.1
+#             prefix: 255.255.255.0
+...
