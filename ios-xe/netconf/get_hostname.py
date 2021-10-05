@@ -15,7 +15,7 @@ PASS = "C1sco12345"
 
 def main():
     """
-    Main method that retrieves the hostname from config via NETCONF.
+    Main method that retrieves the hostname via NETCONF.
     """
     with manager.connect(
         host=HOST,
@@ -30,16 +30,19 @@ def main():
 
         hostname_filter = """
                           <filter>
-                              <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
+                              <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native:native">
                                   <hostname></hostname>
                               </native>
                           </filter>
                           """
-        result = m.get_config("running", hostname_filter)
-        xml_doc = xml.dom.minidom.parseString(result.xml)
-        hostname = xml_doc.getElementsByTagName("hostname")
-        print(hostname[0].firstChild.nodeValue)
-
+        try:
+            result = m.get_config("running", hostname_filter)
+            xml_doc = xml.dom.minidom.parseString(result.xml)
+            hostname = xml_doc.getElementsByTagName("hostname")
+            print(hostname[0].firstChild.nodeValue)
+        except Exception as e:
+            print("Something went wrong.")
+            print(e)
 
 if __name__ == "__main__":
     main()

@@ -12,13 +12,10 @@ PORT = 830
 USER = "developer"
 PASS = "C1sco12345"
 
-# XML file to open
-FILE = "interfaces.xml"
 
-
-def get_configured_interfaces(xml_filter):
+def main():
     """
-    Main method that retrieves the interfaces from config via NETCONF.
+    Main method that retrieves the interfaces config via NETCONF.
     """
     with manager.connect(
         host=HOST,
@@ -30,15 +27,14 @@ def get_configured_interfaces(xml_filter):
         allow_agent=False,
         look_for_keys=False,
     ) as m:
-    
-        with open(xml_filter) as f:
-            return m.get_config("running", f.read())
 
-
-def main():
-    interfaces = get_configured_interfaces(FILE)
-    print(xml.dom.minidom.parseString(interfaces.xml).toprettyxml())
-
+        with open("interfaces_filter.xml", "r") as f:
+            try:
+                interfaces = m.get_config("running", f.read())
+                print(xml.dom.minidom.parseString(interfaces.xml).toprettyxml())
+            except Exception as e:
+                print("Something went wrong.")
+                print(e)
 
 if __name__ == "__main__":
     main()
