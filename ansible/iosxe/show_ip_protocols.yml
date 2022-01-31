@@ -1,0 +1,23 @@
+---
+- name: Run show commands
+  hosts: routers
+  gather_facts: no
+  connection: local
+  tasks:
+    - name: show ip protocols
+      ios_command:
+        commands: show ip protocols
+      register: running_protocols
+
+    - name: show ip protocols Output
+      debug:
+        var: running_protocols['stdout_lines'][0]
+    
+    - name: show ip bgp neighbors
+      ios_command:
+        commands: show ip bgp neighbors
+      register: bgp_neighbors
+    
+    - name: show ip protocols Output
+      debug:
+        var: bgp_neighbors['stdout_lines'][0]
