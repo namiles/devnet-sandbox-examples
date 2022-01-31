@@ -37,6 +37,8 @@ def main():
     if response.ok:
         print(response.status_code)
         print("User created. Use the get_configured_users module to verify.")
+    else:
+        print(f"Failed with status code {response.status_code}")
 
 
 if __name__ == "__main__":

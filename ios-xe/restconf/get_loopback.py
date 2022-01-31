@@ -23,6 +23,8 @@ def main():
     response = requests.get(url, headers=headers, auth=(USER, PASS), verify=False)
     if response.ok:
         print(json.dumps(response.json(), indent=2))
+    else:
+        print(f"Failed with status code {response.status_code}")
 
 
 if __name__ == "__main__":

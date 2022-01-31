@@ -41,6 +41,8 @@ def main():
         print(
             "Loopback created. Use the get_loopback or get_interfaces_config module to verify."
         )
+    else:
+        print(f"Failed with status code {response.status_code}")
 
 
 if __name__ == "__main__":
